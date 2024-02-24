@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\NewClassrooms.Entity\NewClassrooms.Entity.csproj" />
+    <ProjectReference Include="..\NewClassrooms.Service\NewClassrooms.Service.csproj" />
+  </ItemGroup>
+
+</Project>

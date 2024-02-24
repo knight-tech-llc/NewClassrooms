@@ -9,6 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
+stylecop.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -184,7 +185,6 @@ publish/
 *.azurePubxml
 # Note: Comment the next line if you want to checkin your web deploy settings,
 # but database connection strings (with potential passwords) will be unencrypted
-*.pubxml
 *.publishproj
 
 # Microsoft Azure Web App publish settings. Comment the next line if you want to
@@ -351,6 +351,7 @@ ASALocalRun/
 
 # MSBuild Binary and Structured Log
 *.binlog
+.bin
 
 # NVidia Nsight GPU debugger configuration file
 *.nvuser
