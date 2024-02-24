@@ -44,7 +44,8 @@ namespace NewClassrooms.Host
 
             var app = builder.Build();
 
-            if (app.Environment.IsDevelopment())
+            // Normally we would not expose Swagger to production environments but I'm using an Azure trial with only one deployment slot which happens to be production.
+            if (app.Environment.IsDevelopment() || app.Environment.IsEnvironment("Production"))
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
