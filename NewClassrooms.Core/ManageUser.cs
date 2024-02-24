@@ -12,6 +12,7 @@ namespace NewClassrooms.Core
     using GuardAgainstLib;
     using NewClassrooms.Core.Interface;
     using NewClassrooms.Core.Model;
+    using NewClassrooms.Core.Model.Interface;
     using NewClassrooms.Entity;
     using NewClassrooms.Service.Interface;
 
@@ -89,6 +90,55 @@ namespace NewClassrooms.Core
             { });
 
             return await this.userService.GetStatePopulationPercentages(userEntities);
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<StatePopulationPercentageEntity>> GetMalePopulationPercentages(User[] users)
+        {
+            GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
+
+            // TODO: This should be refactored into an extension method or implicit conversion.
+            var userEntities = users.ToList().ConvertAll(x => new UserEntity(
+                x.Name.First,
+                x.Name.Last,
+                x.Dob.Age,
+                x.Gender,
+                x.Location.State)
+            { });
+
+            return await this.userService.GetMalePopulationPercentages(userEntities);
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<StatePopulationPercentageEntity>> GetFemalePopulationPercentages(User[] users)
+        {
+            GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
+
+            // TODO: This should be refactored into an extension method or implicit conversion.
+            var userEntities = users.ToList().ConvertAll(x => new UserEntity(
+                x.Name.First,
+                x.Name.Last,
+                x.Dob.Age,
+                x.Gender,
+                x.Location.State)
+            { });
+
+            return await this.userService.GetFemalePopulationPercentages(userEntities);
+        }
+
+        /// <inheritdoc/>
+        public async Task<List<AgeRangePercentageEntity>> GetAgeRangePercentages(User[] users)
+        {
+            GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
+            var userEntities = users.ToList().ConvertAll(x => new UserEntity(
+                x.Name.First,
+                x.Name.Last,
+                x.Dob.Age,
+                x.Gender,
+                x.Location.State)
+            { });
+
+            return await this.userService.GetAgeRangePercentages(userEntities);
         }
     }
 }

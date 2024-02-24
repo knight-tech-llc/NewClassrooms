@@ -43,21 +43,24 @@ namespace NewClassrooms.Service.Interface
         Task<List<StatePopulationPercentageEntity>> GetStatePopulationPercentages(List<UserEntity> userEntities);
 
         /// <summary>
-        /// Provides a method to retrieve the female populations percentage per state.
+        /// Provides a method to retrieve the female population percentage per state.
         /// </summary>
+        /// <param name="userEntities">A value that represents a collection of <see cref="UserEntity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        int GetFemalePopulationPercentage();
+        Task<List<StatePopulationPercentageEntity>> GetFemalePopulationPercentages(List<UserEntity> userEntities);
 
         /// <summary>
         /// Provides a method to retrieve the male population percentage per state.
         /// </summary>
+        /// <param name="userEntities">A value that represents a collection of <see cref="UserEntity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        int GetMalePopulationPercentage();
+        Task<List<StatePopulationPercentageEntity>> GetMalePopulationPercentages(List<UserEntity> userEntities);
 
         /// <summary>
         /// Provides a method to retrieve age range percentages.
         /// </summary>
+        /// <param name="userEntities">A value that represents a collection of <see cref="UserEntity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        int GetAgeRangePercentages();
+        Task<List<AgeRangePercentageEntity>> GetAgeRangePercentages(List<UserEntity> userEntities);
     }
 }

@@ -119,7 +119,7 @@ namespace NewClassrooms.Host.Controllers
         }
 
         /// <summary>
-        /// Provides a method to retrieve last name percentages.
+        /// Provides a method to retrieve state population percentages.
         /// </summary>
         /// <param name="users">A value that represents a list of users in JSON format.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -137,6 +137,90 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
                 var result = await this.manageUser.GetStatePopulationPercentages(users);
+                return this.Ok(result);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message, ex);
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Provides a method to retrieve male state population percentages.
+        /// </summary>
+        /// <param name="users">A value that represents a list of users in JSON format.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks><b>Remarks:</b><br/><br/>To use this endpoint, one must provide a list of users in JSON format.</remarks>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("GetMalePopulationPercentages")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        [Consumes("application/JSON")]
+        public async Task<IActionResult> GetMalePopulationPercentages(User[] users)
+        {
+            try
+            {
+                GuardAgainst.ArgumentBeingNull(users, nameof(users));
+                var result = await this.manageUser.GetMalePopulationPercentages(users);
+                return this.Ok(result);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message, ex);
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Provides a method to retrieve female state population percentages.
+        /// </summary>
+        /// <param name="users">A value that represents a list of users in JSON format.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks><b>Remarks:</b><br/><br/>To use this endpoint, one must provide a list of users in JSON format.</remarks>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("GetFemalePopulationPercentages")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        [Consumes("application/JSON")]
+        public async Task<IActionResult> GetFemalePopulationPercentages(User[] users)
+        {
+            try
+            {
+                GuardAgainst.ArgumentBeingNull(users, nameof(users));
+                var result = await this.manageUser.GetFemalePopulationPercentages(users);
+                return this.Ok(result);
+            }
+            catch (Exception ex)
+            {
+                this.logger.LogError(ex.Message, ex);
+                return this.BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Provides a method to retrieve age range percentages.
+        /// </summary>
+        /// <param name="users">A value that represents a list of users in JSON format.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        /// <remarks><b>Remarks:</b><br/><br/>To use this endpoint, one must provide a list of users in JSON format.</remarks>
+        [AllowAnonymous]
+        [HttpPost]
+        [Route("GetAgeRangePercentages")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(string), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status503ServiceUnavailable)]
+        [Consumes("application/JSON")]
+        public async Task<IActionResult> GetAgeRangePercentages(User[] users)
+        {
+            try
+            {
+                GuardAgainst.ArgumentBeingNull(users, nameof(users));
+                var result = await this.manageUser.GetAgeRangePercentages(users);
                 return this.Ok(result);
             }
             catch (Exception ex)

@@ -42,5 +42,26 @@ namespace NewClassrooms.Core.Interface
         /// <param name="users">A value that represents a collection of <see cref="UserEntity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         Task<List<StatePopulationPercentageEntity>> GetStatePopulationPercentages(User[] users);
+
+        /// <summary>
+        /// Provides a method to retrieve the female population percentage per state.
+        /// </summary>
+        /// <param name="users">A value that represents a collection of <see cref="User"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task<List<StatePopulationPercentageEntity>> GetFemalePopulationPercentages(User[] users);
+
+        /// <summary>
+        /// Provides a method to retrieve the male population percentage per state.
+        /// </summary>
+        /// <param name="users">A value that represents a collection of <see cref="User"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task<List<StatePopulationPercentageEntity>> GetMalePopulationPercentages(User[] users);
+
+        /// <summary>
+        /// Provides a method to retrieve the age range percentage per state.
+        /// </summary>
+        /// <param name="users">A value that represents a collection of <see cref="User"/>.</param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        Task<List<AgeRangePercentageEntity>> GetAgeRangePercentages(User[] users);
     }
 }
