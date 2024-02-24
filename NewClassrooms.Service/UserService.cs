@@ -106,7 +106,6 @@ namespace NewClassrooms.Service
             return await Task.FromResult(userEntities.GroupBy(item => item.Gender)
              .Select(group => new GenderPercentageEntity(group.Key, 100.0 * group.Count() / userEntities.Count()))
              .ToList());
-
         }
 
         /// <inheritdoc/>

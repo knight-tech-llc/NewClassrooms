@@ -63,11 +63,17 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var male = this.users.FirstOrDefault(u => u.Gender.ToLower() == "male");
             var female = this.users.FirstOrDefault(u => u.Gender.ToLower() == "female");
+            if (male is null || female is null)
+            {
+                throw new Exception("Users cannot be null.");
+            }
+
             var users = new List<User> { male, female };
-            var expected = new List<GenderPercentageEntity> {
+            var expected = new List<GenderPercentageEntity>
+            {
                     new GenderPercentageEntity("male", 50),
                     new GenderPercentageEntity("female", 50),
-                };
+            };
 
             this.manageUser.Setup(x => x.GetGenderPercentages(users.ToArray())).ReturnsAsync(expected);
             var controller = new UserController(this.manageUser.Object, this.logger.Object);
@@ -111,6 +117,11 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var am = this.users.FirstOrDefault(u => u.Name.First.StartsWith("A"));
             var nz = this.users.FirstOrDefault(u => u.Name.First.StartsWith("N"));
+            if (am is null || nz is null)
+            {
+                throw new Exception("Ranges cannot be null.");
+            }
+
             var users = new List<User> { am, nz };
             var expected = new List<NamePercentageEntity>
             {
@@ -160,6 +171,11 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var am = this.users.FirstOrDefault(u => u.Name.First.StartsWith("A"));
             var nz = this.users.FirstOrDefault(u => u.Name.First.StartsWith("N"));
+            if (am is null || nz is null)
+            {
+                throw new Exception("Ranges cannot be null.");
+            }
+
             var users = new List<User> { am, nz };
             var expected = new List<NamePercentageEntity>
             {
@@ -209,8 +225,12 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana");
             var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska");
-            var users = new List<User> { userOne, userTwo };
+            if (userOne is null || userTwo is null)
+            {
+                throw new Exception("Users cannot be null.");
+            }
 
+            var users = new List<User> { userOne, userTwo };
             var expected = new List<StatePopulationPercentageEntity>
             {
                new StatePopulationPercentageEntity("Montana", 50),
@@ -259,6 +279,11 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana" && u.Gender.ToLower() == Gender.Female.ToString().ToLower());
             var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska" && u.Gender.ToLower() == Gender.Male.ToString().ToLower());
+            if (userOne is null || userTwo is null)
+            {
+                throw new Exception("Users cannot be null.");
+            }
+
             var users = new List<User> { userOne, userTwo };
 
             var expected = new List<StatePopulationPercentageEntity>
@@ -309,6 +334,11 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana" && u.Gender.ToLower() == Gender.Female.ToString().ToLower());
             var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska" && u.Gender.ToLower() == Gender.Male.ToString().ToLower());
+            if (userOne is null || userTwo is null)
+            {
+                throw new Exception("Users cannot be null.");
+            }
+
             var users = new List<User> { userOne, userTwo };
 
             var expected = new List<StatePopulationPercentageEntity>
@@ -359,6 +389,11 @@ namespace NewClassrooms.Host.Test
             // Arrange.
             var zeroToTwenty = this.users.FirstOrDefault(u => u.Dob.Age == 0 && u.Dob.Age <= 20);
             var twentyOneToForty = this.users.FirstOrDefault(u => u.Dob.Age >= 21 && u.Dob.Age <= 40);
+            if (zeroToTwenty is null || twentyOneToForty is null)
+            {
+                throw new Exception("Ranges cannot be null.");
+            }
+
             var users = new List<User> { zeroToTwenty, twentyOneToForty };
             var expected = new List<AgeRangePercentageEntity>
             {
@@ -400,7 +435,7 @@ namespace NewClassrooms.Host.Test
 
         private User[] GetUsers()
         {
-            var users = File.ReadAllText(@"Assets/Users.json");
+            var users = File.ReadAllText(@"Assets/Users.json") ?? string.Empty;
             if (users is not null)
             {
                 var options = new JsonSerializerOptions
@@ -408,7 +443,7 @@ namespace NewClassrooms.Host.Test
                     PropertyNameCaseInsensitive = true,
                 };
 
-                return JsonSerializer.Deserialize<User[]>(users, options);
+                return JsonSerializer.Deserialize<User[]>(users, options) ?? new User[0];
             }
 
             throw new Exception("Users string cannot be null or empty.");

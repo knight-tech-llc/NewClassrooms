@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="FirstNamePercentageEntity.cs" company="Knight Technologies LLC">
+// <copyright file="NamePercentageEntity.cs" company="Knight Technologies LLC">
 // Author: Shawn W Knight
 // Copyright (c) Knight Technologies LLC All rights reserved.
 // </copyright>
