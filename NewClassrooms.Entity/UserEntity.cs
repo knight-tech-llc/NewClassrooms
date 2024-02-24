@@ -15,7 +15,6 @@ namespace NewClassrooms.Entity
     /// </summary>
     public class UserEntity : IUserEntity
     {
-
         /// <summary>
         /// Initializes a new instance of the <see cref="UserEntity"/> class.
         /// </summary>

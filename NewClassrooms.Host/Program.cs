@@ -5,12 +5,12 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-using System.Reflection;
-using Microsoft.OpenApi.Models;
-using NewClassrooms.Host.Extension;
-
 namespace NewClassrooms.Host
 {
+    using System.Reflection;
+    using Microsoft.OpenApi.Models;
+    using NewClassrooms.Host.Extension;
+
     /// <summary>
     /// Provides an entry point for the application.
     /// </summary>

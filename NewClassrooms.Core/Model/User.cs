@@ -50,7 +50,7 @@ namespace NewClassrooms.Core.Model
         /// <inheritdoc/>
         public string Nat { get; set; } = null!;
     }
-
+#pragma warning disable SA1402 // File may only contain a single type
     /// <summary>
     /// Provides a DTO for Name.
     /// </summary>
@@ -150,7 +150,6 @@ namespace NewClassrooms.Core.Model
     /// </summary>
     public class Timezone
     {
-
         /// <summary>
         /// Gets or sets Offset.
         /// </summary>
