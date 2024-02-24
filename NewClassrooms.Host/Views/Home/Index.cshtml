@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+<head>
+    <style>
+        .alert {
+            padding: 20px;
+            background-color: #f44336; /* Red */
+            color: white;
+            margin-bottom: 15px;
+        }
+
+        .message {
+            padding: 20px;
+            background-color: forestgreen;
+            color: white;
+            margin-bottom: 15px;
+        }</style>
+</head>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to the New Classrooms Take-Home Assignment User Statistics API being served up by Swagger.</h1>
+    <p>This is the default view for the Home Controller.<br /><br />If you are software engineer or just curious, check out the Swagger page <a href="~/swagger">here</a>.</p>
+    <p>@Html.Raw(ViewData["Alert"])</p>
+</div>
