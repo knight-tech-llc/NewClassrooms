@@ -16,6 +16,7 @@ namespace NewClassrooms.Host.Controllers
     using NewClassrooms.Core.Interface;
     using NewClassrooms.Core.Model;
     using NewClassrooms.Entity;
+    using NewClassrooms.Entity.DTO;
     using NewClassrooms.Entity.Interface;
     using NewClassrooms.Host.Extension;
 
@@ -59,15 +60,21 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetGenderPercentages(users);
-
-                if (this.GetFormat() == "text/plain")
+                var results = await this.manageUser.GetGenderPercentages(users);
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -95,15 +102,22 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetFirstNamePercentages(users);
+                var results = await this.manageUser.GetFirstNamePercentages(users);
 
-                if (this.GetFormat() == "text/plain")
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -131,15 +145,22 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetLastNamePercentages(users);
+                var results = await this.manageUser.GetLastNamePercentages(users);
 
-                if (this.GetFormat() == "text/plain")
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -167,15 +188,22 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetStatePopulationPercentages(users);
+                var results = await this.manageUser.GetStatePopulationPercentages(users);
 
-                if (this.GetFormat() == "text/plain")
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -203,15 +231,22 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetMalePopulationPercentages(users);
+                var results = await this.manageUser.GetMalePopulationPercentages(users);
 
-                if (this.GetFormat() == "text/plain")
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -239,15 +274,22 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetFemalePopulationPercentages(users);
+                var results = await this.manageUser.GetFemalePopulationPercentages(users);
 
-                if (this.GetFormat() == "text/plain")
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -275,15 +317,22 @@ namespace NewClassrooms.Host.Controllers
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
 
-                var result = await this.manageUser.GetAgeRangePercentages(users);
+                var results = await this.manageUser.GetAgeRangePercentages(users);
 
-                if (this.GetFormat() == "text/plain")
+                if (this.GetFormat() == "application/json" || this.GetFormat() == "*/*")
                 {
-                    var text = this.ConvertToString(result);
-                    return this.Ok(text);
+                    return this.Ok(results);
                 }
-
-                return this.Ok(result);
+                else if (this.GetFormat() == "application/xml" || this.GetFormat() == "text/xml")
+                {
+                    var result = this.ConvertToXml(results);
+                    return this.Ok(result);
+                }
+                else
+                {
+                    var result = this.CreateFormat(results);
+                    return this.Ok(result);
+                }
             }
             catch (Exception ex)
             {
@@ -292,14 +341,17 @@ namespace NewClassrooms.Host.Controllers
             }
         }
 
-        private string ConvertToXmlString<T>(List<T> results)
+        private List<PercentageEntity> ConvertToXml<T>(List<T> results)
+             where T : IPercentageEntity
         {
-            var serializer = new XmlSerializer(typeof(List<T>));
-            using (var writer = new StringWriter())
+            var percentageEntities = new List<PercentageEntity>();
+
+            foreach (var item in results)
             {
-                serializer.Serialize(writer, results);
-                return writer.ToString();
+                percentageEntities.Add(new PercentageEntity() { Name = item.Name.ToProper(), Percentage = $"{Math.Round(item.Percentage, 2)}%" });
             }
+
+            return percentageEntities;
         }
 
         private string ConvertToString<T>(List<T> results)
@@ -316,6 +368,43 @@ namespace NewClassrooms.Host.Controllers
                 stringBuilder.AppendLine($"{name}: {percentage}");
             }
 
+            return stringBuilder.ToString();
+        }
+
+        private string ConvertToHtmlString<T>(List<T> results)
+           where T : IPercentageEntity
+        {
+            var stringBuilder = new StringBuilder();
+            var header = this.GetHeader(typeof(T).Name);
+            stringBuilder.AppendLine("<!DOCTYPE html>");
+            stringBuilder.AppendLine("<html>");
+            stringBuilder.AppendLine("<head>");
+            stringBuilder.AppendLine($"<title>{header}</title>");
+            stringBuilder.AppendLine("<style>");
+            stringBuilder.AppendLine("table {");
+            stringBuilder.AppendLine("border-collapse: collapse; }");
+            stringBuilder.AppendLine(" th, td {");
+            stringBuilder.AppendLine(" border: 1px solid black;");
+            stringBuilder.AppendLine(" padding: 8px;");
+            stringBuilder.AppendLine(" text-align: left; }");
+            stringBuilder.AppendLine("</style>");
+            stringBuilder.AppendLine("</head>");
+            stringBuilder.AppendLine("<body>");
+            stringBuilder.AppendLine($"<div>{header}</div><br/>");
+            stringBuilder.AppendLine("<table>");
+            stringBuilder.AppendLine("<tr><th>Name</th><th>Percentage</th></tr>");
+            foreach (var item in results)
+            {
+                var name = item.Name.ToProper();
+                var percentage = $"{Math.Round(item.Percentage, 2)}%";
+                stringBuilder.AppendLine("<tr>");
+                stringBuilder.AppendLine($"<td>{name}</td><td>{percentage}</td>");
+                stringBuilder.AppendLine("</tr>");
+            }
+
+            stringBuilder.AppendLine("</table>");
+            stringBuilder.AppendLine("</body>");
+            stringBuilder.AppendLine("</html>");
             return stringBuilder.ToString();
         }
 
@@ -359,6 +448,21 @@ namespace NewClassrooms.Host.Controllers
             }
 
             return format;
+        }
+
+        private string CreateFormat<T>(List<T> results)
+            where T : IPercentageEntity
+        {
+            if (this.GetFormat() == "text/plain")
+            {
+                return this.ConvertToString(results);
+            }
+            else if (this.GetFormat() == "text/html")
+            {
+                return this.ConvertToHtmlString(results);
+            }
+
+            throw new Exception("Format not supported.");
         }
     }
 }
