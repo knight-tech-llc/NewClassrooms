@@ -7,11 +7,17 @@
 
 namespace NewClassrooms.Host.Controllers
 {
+    using System.Runtime.CompilerServices;
+    using System.Text;
+    using System.Xml.Serialization;
     using GuardAgainstLib;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using NewClassrooms.Core.Interface;
     using NewClassrooms.Core.Model;
+    using NewClassrooms.Entity;
+    using NewClassrooms.Entity.Interface;
+    using NewClassrooms.Host.Extension;
 
     /// <summary>
     /// Provides an implementaton of <see cref="ControllerBase"/>.
@@ -52,7 +58,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetGenderPercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -80,7 +94,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetFirstNamePercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -108,7 +130,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetLastNamePercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -136,7 +166,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetStatePopulationPercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -164,7 +202,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetMalePopulationPercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -192,7 +238,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetFemalePopulationPercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -220,7 +274,15 @@ namespace NewClassrooms.Host.Controllers
             try
             {
                 GuardAgainst.ArgumentBeingNull(users, nameof(users));
+
                 var result = await this.manageUser.GetAgeRangePercentages(users);
+
+                if (this.GetFormat() == "text/plain")
+                {
+                    var text = this.ConvertToString(result);
+                    return this.Ok(text);
+                }
+
                 return this.Ok(result);
             }
             catch (Exception ex)
@@ -228,6 +290,75 @@ namespace NewClassrooms.Host.Controllers
                 this.logger.LogError(ex.Message, ex);
                 return this.BadRequest(ex.Message);
             }
+        }
+
+        private string ConvertToXmlString<T>(List<T> results)
+        {
+            var serializer = new XmlSerializer(typeof(List<T>));
+            using (var writer = new StringWriter())
+            {
+                serializer.Serialize(writer, results);
+                return writer.ToString();
+            }
+        }
+
+        private string ConvertToString<T>(List<T> results)
+            where T : IPercentageEntity
+        {
+            var stringBuilder = new StringBuilder();
+            var header = this.GetHeader(typeof(T).Name);
+            stringBuilder.AppendLine(header);
+            stringBuilder.AppendLine(new string('-', header.Length));
+            foreach (var item in results)
+            {
+                var name = item.Name.ToProper();
+                var percentage = $"{Math.Round(item.Percentage, 2)}%";
+                stringBuilder.AppendLine($"{name}: {percentage}");
+            }
+
+            return stringBuilder.ToString();
+        }
+
+        private string GetHeader(string name)
+        {
+            switch (name)
+            {
+                case nameof(GenderPercentageEntity):
+                    return "Percentage of female versus male";
+
+                case nameof(AgeRangePercentageEntity):
+                    return "Percentage of people in the following age ranges: 0-20, 21-40, 41-60, 61-80, 81-100, 100+";
+
+                case nameof(LastNamePercentageEntity):
+                    return $"Percentage of last names that start with A-M versus N-Z";
+
+                case nameof(FirstNamePercentageEntity):
+                    return $"Percentage of first names that start with A-M versus N-Z";
+
+                case nameof(StatePopulationPercentageEntity):
+                    return "Percentage of people in each state up to the 10 most populous states.";
+
+                case nameof(FemalePopulationPercentageEntity):
+                    return "Percentage of females in each state up to the 10 most populous states.";
+
+                case nameof(MalePopulationPercentageEntity):
+                    return "Percentage of males in each state up to the 10 most populous states.";
+
+                default:
+                    throw new ArgumentException($"{name} is not supported.");
+            }
+        }
+
+        private string GetFormat()
+        {
+            string format = "application/json";
+            if (this.Request is not null)
+            {
+                this.Request.Headers.TryGetValue("Accept", out var acceptHeaderValue);
+                format = acceptHeaderValue.ToString();
+            }
+
+            return format;
         }
     }
 }

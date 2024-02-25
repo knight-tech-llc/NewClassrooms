@@ -13,21 +13,21 @@ namespace NewClassrooms.Entity
     /// <summary>
     /// Provides an implementation of <see cref="IGenderPercentageEntity"/>.
     /// </summary>
-    public class GenderPercentageEntity : IGenderPercentageEntity
+    public sealed class GenderPercentageEntity : IGenderPercentageEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="GenderPercentageEntity"/> class.
         /// </summary>
-        /// <param name="gender">A value that represents the gender.</param>
+        /// <param name="name">A value that represents the name of the gender.</param>
         /// <param name="percentage">A value that represents the percentage of the gender.</param>
-        public GenderPercentageEntity(string gender, double percentage)
+        public GenderPercentageEntity(string name, double percentage)
         {
-            this.Gender = GuardAgainst.ArgumentBeingNullOrEmpty(gender, nameof(gender));
+            this.Name = GuardAgainst.ArgumentBeingNullOrEmpty(name, nameof(name));
             this.Percentage = GuardAgainst.ArgumentBeingOutOfRange(percentage, 0, 100, nameof(percentage));
         }
 
         /// <inheritdoc/>
-        public string Gender { get; private set; }
+        public string Name { get; private set; }
 
         /// <inheritdoc/>
         public double Percentage { get; private set; }

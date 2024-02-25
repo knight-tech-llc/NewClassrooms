@@ -10,13 +10,12 @@ namespace NewClassrooms.Service
     using System.Threading.Tasks;
     using GuardAgainstLib;
     using NewClassrooms.Entity;
-    using NewClassrooms.Service.Enum;
     using NewClassrooms.Service.Interface;
 
     /// <summary>
     /// Provides an implementation of <see cref="IUserService"/>.
     /// </summary>
-    public class UserService : IUserService
+    public sealed class UserService : IUserService
     {
         /// <inheritdoc/>
         public async Task<List<AgeRangePercentageEntity>> GetAgeRangePercentages(List<UserEntity> userEntities)
@@ -32,7 +31,7 @@ namespace NewClassrooms.Service
             new { Min = 41, Max = 60 },
             new { Min = 61, Max = 80 },
             new { Min = 81, Max = 100 },
-            new { Min = 100, Max = int.MaxValue },
+            new { Min = 100, Max = 125 },
             };
 
             // Calculate total user count
@@ -58,15 +57,15 @@ namespace NewClassrooms.Service
         }
 
         /// <inheritdoc/>
-        public async Task<List<StatePopulationPercentageEntity>> GetFemalePopulationPercentages(List<UserEntity> userEntities)
+        public async Task<List<FemalePopulationPercentageEntity>> GetFemalePopulationPercentages(List<UserEntity> userEntities)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(userEntities, nameof(userEntities));
 
-            return await this.GetPopulationByGender(userEntities, Gender.Female);
+            return await this.GetFemalePopulation(userEntities);
         }
 
         /// <inheritdoc/>
-        public async Task<List<NamePercentageEntity>> GetFirstNamePercentages(List<UserEntity> userEntities)
+        public async Task<List<FirstNamePercentageEntity>> GetFirstNamePercentages(List<UserEntity> userEntities)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(userEntities, nameof(userEntities));
 
@@ -78,11 +77,11 @@ namespace NewClassrooms.Service
             // Calculate percentages
             double percentAM = (double)countAM / totalCount * 100;
             double percentNZ = (double)countNZ / totalCount * 100;
-            return await Task.FromResult(new List<NamePercentageEntity> { new NamePercentageEntity("A-M", percentAM), new NamePercentageEntity("N-Z", percentNZ) });
+            return await Task.FromResult(new List<FirstNamePercentageEntity> { new FirstNamePercentageEntity("A-M", percentAM), new FirstNamePercentageEntity("N-Z", percentNZ) });
         }
 
         /// <inheritdoc/>
-        public async Task<List<NamePercentageEntity>> GetLastNamePercentages(List<UserEntity> userEntities)
+        public async Task<List<LastNamePercentageEntity>> GetLastNamePercentages(List<UserEntity> userEntities)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(userEntities, nameof(userEntities));
 
@@ -95,7 +94,7 @@ namespace NewClassrooms.Service
             // Calculate percentages
             double percentAM = (double)countAM / totalCount * 100;
             double percentNZ = (double)countNZ / totalCount * 100;
-            return await Task.FromResult(new List<NamePercentageEntity> { new NamePercentageEntity("A-M", percentAM), new NamePercentageEntity("N-Z", percentNZ) });
+            return await Task.FromResult(new List<LastNamePercentageEntity> { new LastNamePercentageEntity("A-M", percentAM), new LastNamePercentageEntity("N-Z", percentNZ) });
         }
 
         /// <inheritdoc/>
@@ -109,11 +108,11 @@ namespace NewClassrooms.Service
         }
 
         /// <inheritdoc/>
-        public async Task<List<StatePopulationPercentageEntity>> GetMalePopulationPercentages(List<UserEntity> userEntities)
+        public async Task<List<MalePopulationPercentageEntity>> GetMalePopulationPercentages(List<UserEntity> userEntities)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(userEntities, nameof(userEntities));
 
-            return await this.GetPopulationByGender(userEntities, Gender.Male);
+            return await this.GetMalePopulation(userEntities);
         }
 
         /// <inheritdoc/>
@@ -138,17 +137,16 @@ namespace NewClassrooms.Service
             return await Task.FromResult(percentages);
         }
 
-        private async Task<List<StatePopulationPercentageEntity>> GetPopulationByGender(List<UserEntity> userEntities, Gender gender)
+        private async Task<List<FemalePopulationPercentageEntity>> GetFemalePopulation(List<UserEntity> userEntities)
         {
-            var percentages = new List<StatePopulationPercentageEntity>();
+            var percentages = new List<FemalePopulationPercentageEntity>();
 
             Dictionary<string, int> statePopulations = userEntities
                 .GroupBy(user => user.State)
                 .ToDictionary(group => group.Key, group => group.Count());
 
-            // Calculate female populations
             Dictionary<string, int> femalePopulations = userEntities
-                .Where(user => user.Gender.ToLower() == gender.ToString().ToLower())
+                .Where(user => user.Gender.ToLower() == "female")
                 .GroupBy(record => record.State)
                 .ToDictionary(group => group.Key, group => group.Count());
 
@@ -157,7 +155,31 @@ namespace NewClassrooms.Service
             foreach (var (state, population) in sortedStates.Take(10))
             {
                 double percentage = (double)femalePopulations.GetValueOrDefault(state, 0) / population * 100;
-                percentages.Add(new StatePopulationPercentageEntity(state, percentage));
+                percentages.Add(new FemalePopulationPercentageEntity(state, percentage));
+            }
+
+            return await Task.FromResult(percentages);
+        }
+
+        private async Task<List<MalePopulationPercentageEntity>> GetMalePopulation(List<UserEntity> userEntities)
+        {
+            var percentages = new List<MalePopulationPercentageEntity>();
+
+            Dictionary<string, int> statePopulations = userEntities
+                .GroupBy(user => user.State)
+                .ToDictionary(group => group.Key, group => group.Count());
+
+            Dictionary<string, int> femalePopulations = userEntities
+                .Where(user => user.Gender.ToLower() == "male")
+                .GroupBy(record => record.State)
+                .ToDictionary(group => group.Key, group => group.Count());
+
+            var sortedStates = statePopulations.OrderByDescending(kv => kv.Value);
+
+            foreach (var (state, population) in sortedStates.Take(10))
+            {
+                double percentage = (double)femalePopulations.GetValueOrDefault(state, 0) / population * 100;
+                percentages.Add(new MalePopulationPercentageEntity(state, percentage));
             }
 
             return await Task.FromResult(percentages);

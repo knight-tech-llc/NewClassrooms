@@ -27,14 +27,14 @@ namespace NewClassrooms.Core.Interface
         /// </summary>
         /// <param name="users">A value that represents a collection of <see cref="UserEntity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<List<NamePercentageEntity>> GetFirstNamePercentages(User[] users);
+        Task<List<FirstNamePercentageEntity>> GetFirstNamePercentages(User[] users);
 
         /// <summary>
         /// Provides a method to retrieve the percentage of last names that start with A-M versus N-Z.
         /// </summary>
         /// <param name="users">A value that represents a collection of <see cref="UserEntity"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<List<NamePercentageEntity>> GetLastNamePercentages(User[] users);
+        Task<List<LastNamePercentageEntity>> GetLastNamePercentages(User[] users);
 
         /// <summary>
         /// Provides a method to retrieve the percentage of users in each state.
@@ -48,14 +48,14 @@ namespace NewClassrooms.Core.Interface
         /// </summary>
         /// <param name="users">A value that represents a collection of <see cref="User"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<List<StatePopulationPercentageEntity>> GetFemalePopulationPercentages(User[] users);
+        Task<List<FemalePopulationPercentageEntity>> GetFemalePopulationPercentages(User[] users);
 
         /// <summary>
         /// Provides a method to retrieve the male population percentage per state.
         /// </summary>
         /// <param name="users">A value that represents a collection of <see cref="User"/>.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        Task<List<StatePopulationPercentageEntity>> GetMalePopulationPercentages(User[] users);
+        Task<List<MalePopulationPercentageEntity>> GetMalePopulationPercentages(User[] users);
 
         /// <summary>
         /// Provides a method to retrieve the age range percentage per state.

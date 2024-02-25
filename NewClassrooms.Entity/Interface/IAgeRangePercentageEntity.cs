@@ -10,16 +10,7 @@ namespace NewClassrooms.Entity.Interface
     /// <summary>
     /// Provides an interface for gender percentage.
     /// </summary>
-    public interface IAgeRangePercentageEntity
+    public interface IAgeRangePercentageEntity : IPercentageEntity
     {
-        /// <summary>
-        /// Gets Range.
-        /// </summary>
-        string Range { get; }
-
-        /// <summary>
-        /// Gets Percentage.
-        /// </summary>
-        double Percentage { get; }
     }
 }

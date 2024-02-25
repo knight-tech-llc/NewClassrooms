@@ -12,14 +12,14 @@ namespace NewClassrooms.Core
     using GuardAgainstLib;
     using NewClassrooms.Core.Interface;
     using NewClassrooms.Core.Model;
-    using NewClassrooms.Core.Model.Interface;
     using NewClassrooms.Entity;
+    using NewClassrooms.Entity.Abstract;
     using NewClassrooms.Service.Interface;
 
     /// <summary>
     /// Provides an implementation of <see cref="IManageUser"/>.
     /// </summary>
-    public class ManageUser : IManageUser
+    public sealed class ManageUser : IManageUser
     {
         private readonly IUserService userService;
 
@@ -33,7 +33,7 @@ namespace NewClassrooms.Core
         }
 
         /// <inheritdoc/>
-        public async Task<List<NamePercentageEntity>> GetFirstNamePercentages(User[] users)
+        public async Task<List<FirstNamePercentageEntity>> GetFirstNamePercentages(User[] users)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
             var userEntities = users.ToList().ConvertAll(x => new UserEntity(
@@ -43,12 +43,11 @@ namespace NewClassrooms.Core
                 x.Gender,
                 x.Location.State)
             { });
-
             return await this.userService.GetFirstNamePercentages(userEntities);
         }
 
         /// <inheritdoc/>
-        public async Task<List<NamePercentageEntity>> GetLastNamePercentages(User[] users)
+        public async Task<List<LastNamePercentageEntity>> GetLastNamePercentages(User[] users)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
             var userEntities = users.ToList().ConvertAll(x => new UserEntity(
@@ -93,7 +92,7 @@ namespace NewClassrooms.Core
         }
 
         /// <inheritdoc/>
-        public async Task<List<StatePopulationPercentageEntity>> GetMalePopulationPercentages(User[] users)
+        public async Task<List<MalePopulationPercentageEntity>> GetMalePopulationPercentages(User[] users)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
 
@@ -110,7 +109,7 @@ namespace NewClassrooms.Core
         }
 
         /// <inheritdoc/>
-        public async Task<List<StatePopulationPercentageEntity>> GetFemalePopulationPercentages(User[] users)
+        public async Task<List<FemalePopulationPercentageEntity>> GetFemalePopulationPercentages(User[] users)
         {
             GuardAgainst.ArgumentBeingNullOrEmpty(users, nameof(users));
 

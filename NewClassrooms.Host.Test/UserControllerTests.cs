@@ -15,6 +15,7 @@ namespace NewClassrooms.Host.Test
     using NewClassrooms.Core.Interface;
     using NewClassrooms.Core.Model;
     using NewClassrooms.Entity;
+    using NewClassrooms.Entity.Abstract;
     using NewClassrooms.Host.Controllers;
     using NewClassrooms.Service.Enum;
 
@@ -123,10 +124,10 @@ namespace NewClassrooms.Host.Test
             }
 
             var users = new List<User> { am, nz };
-            var expected = new List<NamePercentageEntity>
+            var expected = new List<FirstNamePercentageEntity>
             {
-               new NamePercentageEntity("A-M", 50),
-               new NamePercentageEntity("N-Z", 50),
+               new FirstNamePercentageEntity("A-M", 50),
+               new FirstNamePercentageEntity("N-Z", 50),
             };
 
             this.manageUser.Setup(x => x.GetFirstNamePercentages(users.ToArray())).ReturnsAsync(expected);
@@ -177,10 +178,10 @@ namespace NewClassrooms.Host.Test
             }
 
             var users = new List<User> { am, nz };
-            var expected = new List<NamePercentageEntity>
+            var expected = new List<LastNamePercentageEntity>
             {
-               new NamePercentageEntity("A-M", 50),
-               new NamePercentageEntity("N-Z", 50),
+               new LastNamePercentageEntity("A-M", 50),
+               new LastNamePercentageEntity("N-Z", 50),
             };
 
             this.manageUser.Setup(x => x.GetLastNamePercentages(users.ToArray())).ReturnsAsync(expected);
@@ -277,8 +278,8 @@ namespace NewClassrooms.Host.Test
         public async Task Invoke_Get_Female_Population_Percentages_Successfully()
         {
             // Arrange.
-            var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana" && u.Gender.ToLower() == Gender.Female.ToString().ToLower());
-            var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska" && u.Gender.ToLower() == Gender.Male.ToString().ToLower());
+            var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana" && u.Gender.ToLower() == "female");
+            var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska" && u.Gender.ToLower() == "male");
             if (userOne is null || userTwo is null)
             {
                 throw new Exception("Users cannot be null.");
@@ -286,10 +287,10 @@ namespace NewClassrooms.Host.Test
 
             var users = new List<User> { userOne, userTwo };
 
-            var expected = new List<StatePopulationPercentageEntity>
+            var expected = new List<FemalePopulationPercentageEntity>
             {
-               new StatePopulationPercentageEntity("Montana", 50),
-               new StatePopulationPercentageEntity("Alaska", 0),
+               new FemalePopulationPercentageEntity("Montana", 50),
+               new FemalePopulationPercentageEntity("Alaska", 0),
             };
 
             this.manageUser.Setup(x => x.GetFemalePopulationPercentages(users.ToArray())).ReturnsAsync(expected);
@@ -332,8 +333,8 @@ namespace NewClassrooms.Host.Test
         public async Task Invoke_Get_Male_Population_Percentages_Successfully()
         {
             // Arrange.
-            var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana" && u.Gender.ToLower() == Gender.Female.ToString().ToLower());
-            var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska" && u.Gender.ToLower() == Gender.Male.ToString().ToLower());
+            var userOne = this.users.FirstOrDefault(u => u.Location.State == "Montana" && u.Gender.ToLower() == "female");
+            var userTwo = this.users.FirstOrDefault(u => u.Location.State == "Alaska" && u.Gender.ToLower() == "male");
             if (userOne is null || userTwo is null)
             {
                 throw new Exception("Users cannot be null.");
@@ -341,10 +342,10 @@ namespace NewClassrooms.Host.Test
 
             var users = new List<User> { userOne, userTwo };
 
-            var expected = new List<StatePopulationPercentageEntity>
+            var expected = new List<MalePopulationPercentageEntity>
             {
-               new StatePopulationPercentageEntity("Montana", 0),
-               new StatePopulationPercentageEntity("Alaska", 50),
+               new MalePopulationPercentageEntity("Montana", 0),
+               new MalePopulationPercentageEntity("Alaska", 50),
             };
 
             this.manageUser.Setup(x => x.GetMalePopulationPercentages(users.ToArray())).ReturnsAsync(expected);
@@ -387,7 +388,7 @@ namespace NewClassrooms.Host.Test
         public async Task Invoke_Get_Age_Range_Percentages_Successfully()
         {
             // Arrange.
-            var zeroToTwenty = this.users.FirstOrDefault(u => u.Dob.Age == 0 && u.Dob.Age <= 20);
+            var zeroToTwenty = this.users.FirstOrDefault(u => u.Dob.Age >= 0 && u.Dob.Age <= 20);
             var twentyOneToForty = this.users.FirstOrDefault(u => u.Dob.Age >= 21 && u.Dob.Age <= 40);
             if (zeroToTwenty is null || twentyOneToForty is null)
             {

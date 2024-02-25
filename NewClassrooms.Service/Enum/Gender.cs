@@ -10,6 +10,7 @@ namespace NewClassrooms.Service.Enum
     /// <summary>
     /// Provides an enumeration of gender.
     /// </summary>
+    [Obsolete]
     public enum Gender
     {
         /// <summary>

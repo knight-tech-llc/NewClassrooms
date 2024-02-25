@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IFirstNamePercentageEntity.cs" company="Knight Technologies LLC">
+// <copyright file="IPercentageEntity.cs" company="Knight Technologies LLC">
 // Author: Shawn W Knight
 // Copyright (c) Knight Technologies LLC All rights reserved.
 // </copyright>
@@ -8,14 +8,14 @@
 namespace NewClassrooms.Entity.Interface
 {
     /// <summary>
-    /// Provides an interface for gender percentage.
+    /// Provides an interface for percentage entities.
     /// </summary>
-    public interface IFirstNamePercentageEntity
+    public interface IPercentageEntity
     {
         /// <summary>
-        /// Gets Range.
+        /// Gets Name.
         /// </summary>
-        string Range { get; }
+        string Name { get; }
 
         /// <summary>
         /// Gets Percentage.

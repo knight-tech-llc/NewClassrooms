@@ -27,7 +27,8 @@ namespace NewClassrooms.Host
 
             builder.Services.AddServices();
             builder.Services.AddPorts();
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddXmlSerializerFormatters();
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {

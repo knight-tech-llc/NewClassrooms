@@ -5,29 +5,29 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace NewClassrooms.Entity
+namespace NewClassrooms.Entity.Abstract
 {
     using GuardAgainstLib;
     using NewClassrooms.Entity.Interface;
 
     /// <summary>
-    /// Provides an implementation of <see cref="IFirstNamePercentageEntity"/>.
+    /// Provides an implementation of <see cref="INamePercentageEntity"/>.
     /// </summary>
-    public class NamePercentageEntity : IFirstNamePercentageEntity
+    public abstract class NamePercentageEntity : INamePercentageEntity
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="NamePercentageEntity"/> class.
         /// </summary>
-        /// <param name="range">A value that represents the range.</param>
-        /// <param name="percentage">A value that represents the percentage of the gender.</param>
-        public NamePercentageEntity(string range, double percentage)
+        /// <param name="name">A value that represents the first or last name.</param>
+        /// <param name="percentage">A value that represents the percentage of the name.</param>
+        public NamePercentageEntity(string name, double percentage)
         {
-            this.Range = GuardAgainst.ArgumentBeingNullOrEmpty(range, nameof(range));
+            this.Name = GuardAgainst.ArgumentBeingNullOrEmpty(name, nameof(name));
             this.Percentage = GuardAgainst.ArgumentBeingOutOfRange(percentage, 0, 100, nameof(percentage));
         }
 
         /// <inheritdoc/>
-        public string Range { get; private set; }
+        public string Name { get; private set; }
 
         /// <inheritdoc/>
         public double Percentage { get; private set; }

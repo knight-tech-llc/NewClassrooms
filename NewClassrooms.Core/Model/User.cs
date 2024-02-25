@@ -12,7 +12,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides an implementation of <see cref="IUser"/>.
     /// </summary>
-    public class User : IUser
+    public sealed class User : IUser
     {
         /// <inheritdoc/>
         public string Gender { get; set; } = null!;
@@ -54,7 +54,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Name.
     /// </summary>
-    public class Name
+    public sealed class Name
     {
         /// <summary>
         /// Gets or sets Title.
@@ -75,7 +75,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Location.
     /// </summary>
-    public class Location
+    public sealed class Location
     {
         /// <summary>
         /// Gets or sets Street.
@@ -116,7 +116,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Street.
     /// </summary>
-    public class Street
+    public sealed class Street
     {
         /// <summary>
         /// Gets or sets Number.
@@ -132,7 +132,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Coordinates.
     /// </summary>
-    public class Coordinates
+    public sealed class Coordinates
     {
         /// <summary>
         /// Gets or sets Latitude.
@@ -148,7 +148,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Timezone.
     /// </summary>
-    public class Timezone
+    public sealed class Timezone
     {
         /// <summary>
         /// Gets or sets Offset.
@@ -164,7 +164,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Login.
     /// </summary>
-    public class Login
+    public sealed class Login
     {
         /// <summary>
         /// Gets or sets Uuid.
@@ -205,7 +205,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Dob.
     /// </summary>
-    public class Dob
+    public sealed class Dob
     {
         /// <summary>
         /// Gets or sets Date.
@@ -221,7 +221,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Registered.
     /// </summary>
-    public class Registered
+    public sealed class Registered
     {
         /// <summary>
         /// Gets or sets Date.
@@ -237,7 +237,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Id.
     /// </summary>
-    public class Id
+    public sealed class Id
     {
         /// <summary>
         /// Gets or sets Name.
@@ -253,7 +253,7 @@ namespace NewClassrooms.Core.Model
     /// <summary>
     /// Provides a DTO for Picture.
     /// </summary>
-    public class Picture
+    public sealed class Picture
     {
         /// <summary>
         /// Gets or sets Large.
